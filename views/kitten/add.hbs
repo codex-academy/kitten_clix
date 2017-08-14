@@ -1,0 +1,35 @@
+<h1>Add kitten</h1>
+
+{{#if messages.info}}
+<div class="message">
+    {{messages.info}}
+</div>
+{{/if}}
+
+<div class="row">
+
+    <div class="two columns">
+        <form method="post" action="/add">
+
+            <div class="row">
+                <div class="six columns">
+                    Name
+                </div>
+                <div class="six columns">
+                    <input type="text" name="name">
+                </div>
+            </div>
+            <div class="row">
+                <div class="six columns">
+                    Color
+                </div>
+                <div class="six columns">
+                    <input type="text" name="color">
+                </div>
+            </div>
+            <div class="">
+                <input class="button-primary" type="submit" value="Add kitten">
+            </div>
+        </form>
+    </div>
+</div>

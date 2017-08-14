@@ -6,8 +6,9 @@ const io = require('socket.io')(http);
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const flash = require('express-flash');
-
-const LightRoutes = require('./light-routes');
+const mongoose = require('mongoose');
+const KittenRoutes = require('./kitten-routes');
+const Models = require('./models');
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -22,17 +23,20 @@ app.use(session({
 }))
 
 app.use(flash());
-
 //setup handlebars
 app.engine('hbs', expressHandlebars({defaultLayout: 'main'}));
 app.set('view engine', 'hbs');
 
-const lightRoutes = LightRoutes();
+const models = Models('mongodb://localhost/kitten_clix');
+const kittenRoutes = KittenRoutes(models);
 
-app.get('/', lightRoutes.index);
-app.post('/light', lightRoutes.light);
+app.get('/', kittenRoutes.index);
+app.get('/add', kittenRoutes.addScreen);
+app.post('/add', kittenRoutes.add);
 
-var port = process.env.port || 3007;
+app.get('/like/:kittenName', kittenRoutes.like);
+
+var port = process.env.PORT || 3007;
 http.listen(port, function(){
     console.log('running at port :' , port)
 });

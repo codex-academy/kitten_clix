@@ -1,0 +1,25 @@
+<h1>Kittens</h1>
+
+{{#if messages.info}}
+<div class="message">
+    {{messages.info}}
+</div>
+{{/if}}
+
+<a href="/add">Add kitten</a>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Color</th>
+        <th>Likes</th>
+    </tr>
+    {{#each kittens}}
+            <tr>
+                <td>{{name}}</td>
+                <td>{{color}}</td>
+                <td>{{likes}}</td>
+                <td><a href="/like/{{name}}">Like</a></td>
+            </tr>
+    {{/each}}
+</table>
