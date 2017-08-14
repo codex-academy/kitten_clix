@@ -1,0 +1,27 @@
+<h1>Login</h1>
+
+{{#if messages.info}}
+<div class="message">
+    {{messages.info}}
+</div>
+{{/if}}
+
+<div class="row">
+
+    <div class="four columns">
+        <form method="post" action="/login">
+
+            <div class="row">
+                <div class="six columns">
+                    Username
+                </div>
+                <div class="six columns">
+                    <input type="text" name="username">
+                </div>
+            </div>
+            <div class="">
+                <input class="button-primary" type="submit" value="Login">
+            </div>
+        </form>
+    </div>
+</div>

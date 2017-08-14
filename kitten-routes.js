@@ -32,6 +32,10 @@ module.exports = function(models){
     const like = function(req, res, next){
         let kittenName = req.params.kittenName;
 
+        if (!req.session.username){
+            return res.redirect("/login");
+        }
+
         Kitten.findOne({name : kittenName}, function(err, kitten){
             kitten.likes++;
             kitten.save(function(err, result){

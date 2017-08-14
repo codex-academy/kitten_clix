@@ -27,7 +27,10 @@
 <body>
     <!-- .container is main centered wrapper -->
     <div class="container">
-
+        {{#if username}}
+        Hello, {{username}}
+        <a href="/logout">Logout</a>
+        {{/if}}
         {{{body}}}
         <style media="screen">
             .work {
