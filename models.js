@@ -12,7 +12,7 @@ module.exports = function(mongoUrl){
 
     var KittenLike = mongoose.model('KittenLike', {
         kittenName: String,
-        likedBy : Number
+        username : String
     });
 
      return {

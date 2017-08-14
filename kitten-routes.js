@@ -1,6 +1,7 @@
 
 module.exports = function(models){
     const Kitten = models.Kitten;
+    const KittenLike = models.KittenLike;
 
     const index = function(req, res){
         Kitten.find({}, function(err, kittens){
@@ -36,13 +37,41 @@ module.exports = function(models){
             return res.redirect("/login");
         }
 
-        Kitten.findOne({name : kittenName}, function(err, kitten){
-            kitten.likes++;
-            kitten.save(function(err, result){
-                res.redirect("/");
-            });
-        });
+        let kittenUserData = {
+            kittenName : kittenName,
+            username : req.session.username
+        };
 
+        KittenLike.findOne(kittenUserData, function(err, kittenLike){
+
+            if (kittenLike){
+                //Remove the kitten like entry
+                kittenLike.remove(function(err){
+                    //Find the kitten
+                    Kitten.findOne({name : kittenName}, function(err, kitten){
+                        //decrement the likes
+                        kitten.likes--;
+                        //save the kitten!
+                        kitten.save(function(err, result){
+                            res.redirect("/");
+                        });
+                    });
+                })
+            }
+            else {
+                let theKittenLike = new KittenLike(kittenUserData);
+                theKittenLike.save(function(err, theLike){
+                    Kitten.findOne({name : kittenName}, function(err, kitten){
+                        //decrement the likes
+                        kitten.likes++;
+                        //save the kitten!
+                        kitten.save(function(err, result){
+                            res.redirect("/");
+                        });
+                    });
+                });
+            }
+        });
     };
 
     return {
