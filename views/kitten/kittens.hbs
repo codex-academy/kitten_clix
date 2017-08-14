@@ -10,12 +10,15 @@
 
 <table>
     <tr>
+        <th></th>
         <th>Name</th>
         <th>Color</th>
         <th>Likes</th>
+        <th></th>
     </tr>
     {{#each kittens}}
             <tr>
+                <td><img src="https://placekitten.com/200/200?image={{@index}}" alt=""></td>
                 <td>{{name}}</td>
                 <td>{{color}}</td>
                 <td>{{likes}}</td>
