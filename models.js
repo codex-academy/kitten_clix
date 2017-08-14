@@ -2,7 +2,9 @@ var mongoose = require('mongoose');
 
 module.exports = function(mongoUrl){
 
-    mongoose.connect(mongoUrl);
+    mongoose.connect(mongoUrl, {
+        "useMongoClient" : true
+    });
 
     var Kitten = mongoose.model('Kitten', {
         name: String,
